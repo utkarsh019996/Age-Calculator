@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Age Calculator</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <h2>Age Calculator</h2>
+        <label for="birthdate">Enter Your birthdate:</label>
+        <input type="date" id="birthdate">
+        <button onclick="calculateAge()">Calculate Age</button>
+        <p id="result"></p>
+    </div>
+
+
+    <script>
+        function calculateAge() {
+          var birthdateInput = document.getElementById('birthdate').value;
+          var birthdate = new Date(birthdateInput);
+          var today = new Date();
+          var ageYears = today.getFullYear() - birthdate.getFullYear();
+          var ageMonths = today.getMonth() - birthdate.getMonth();
+          var ageDays = today.getDate() - birthdate.getDate();
+          
+          if (ageMonths < 0 || (ageMonths === 0 && ageDays < 0)) {
+            ageYears--;
+            ageMonths += 12;
+          }
+          if (ageDays < 0) {
+            var prevMonth = new Date(today);
+            prevMonth.setMonth(today.getMonth() - 1);
+            var daysInPrevMonth = new Date(prevMonth.getFullYear(), prevMonth.getMonth() + 1, 0).getDate();
+            ageDays += daysInPrevMonth;
+            ageMonths--;
+          }
+          document.getElementById('result').innerHTML = "You are " + ageYears + " years, " + ageMonths + " months, and " + ageDays + " days old.";
+        }
+      </script>
+</body>
+</html>
